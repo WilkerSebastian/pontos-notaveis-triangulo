@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+      "target": "es5",                          
+      "module": "CommonJS",                  
+      "lib": [
+        "es6",
+        "dom"
+      ],        
+      "allowJs": true,
+      "outDir": "js",                          
+      "rootDir": "ts",
+      "strict": true,         
+      "noImplicitAny": true,
+      "esModuleInterop": true,
+      "resolveJsonModule": true
+    },
+    "exclude": [
+
+        "jquery",
+        "bootstrap-5.2.0-dist",
+        "js"
+
+    ]
+  }
