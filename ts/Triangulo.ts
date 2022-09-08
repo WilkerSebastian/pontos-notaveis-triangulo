@@ -3,12 +3,35 @@ class Triangulo {
     A: { x: number, y: number }
     B: { x: number, y: number }
     C: { x: number, y: number }
+    alfa:number
+    beta:number
+    charlie:number
 
     constructor(A: { x: number, y: number }, B: { x: number, y: number }, C: { x: number, y: number }) {
 
         this.A = A
         this.B = B
         this.C = C
+        this.alfa = this.getAngle("alfa")
+        this.beta = this.getAngle("beta")
+        this.charlie = this.getAngle("charlie")
+
+    }
+
+    getAngle(tipo:string) {
+
+        const ab = this.getLine(this.A, this.B)
+        const bc = this.getLine(this.B, this.C)
+        const ca = this.getLine(this.C, this.A)
+
+        switch (tipo) {
+            case "alfa": return this.radToGraus(Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)))
+        
+            case "beta": return this.radToGraus(Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)))
+
+            case "charlie": return this.radToGraus(Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)))
+        }
+        return 0
 
     }
 
@@ -28,14 +51,14 @@ class Triangulo {
 
     }
 
-    render(ctx: CanvasRenderingContext2D) {
+    render(ctx: CanvasRenderingContext2D , modo?:string) {
 
         const A = scale(this.A.x , this.A.y)
         const B = scale(this.B.x , this.B.y)
         const C = scale(this.C.x , this.C.y)
 
-        ctx.fillStyle = "black"
-        ctx.strokeStyle = "black"
+        ctx.fillStyle = "#5E0099"
+        ctx.strokeStyle = "#5E0099"
 
         const path = new Path2D()
 
@@ -48,6 +71,9 @@ class Triangulo {
         path.moveTo(C.x, C.y)
         path.lineTo(A.x, A.y)
 
+        path.closePath()
+
+        ctx.fill(path)
         ctx.stroke(path)
 
     }
@@ -105,9 +131,60 @@ class Triangulo {
 
         
         condição de existência: ${this.isValid() ? "verdadeiro" : "falso"}
+
+        ÂNGULO DO TRIÂNGULO
+
+        alfa = arccos( a² - b² - c² / -2 * b * c ) * 180 / π
+        alfa = arccos( ${ab}² - ${bc}² - ${ca}² / -2 * ${bc} * ${ca} ) * 180 / π
+        alfa = arccos( ${ab}² - ${bc}² - ${ca}² / -2 * ${bc * ca} ) * 180 / π
+        alfa = arccos( ${ab}² - ${bc}² - ${ca}² / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${Math.pow(ab , 2)} - ${Math.pow(bc , 2)} - ${Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${Math.pow(ab , 2) - Math.pow(bc , 2)} - ${Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${(Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)} ) * 180 / π
+        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * 180 / π
+        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * 180 / ${Math.PI}
+        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * ${180 / Math.PI}
+        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)) * 180 / Math.PI}°
+
+        beta = arccos( b² – a² – c² / – 2 * a * c ) * 180 / π
+        beta = arccos( ${bc}² - ${ab}² - ${ca}² / -2 * ${ab} * ${ca} ) * 180 / π
+        beta = arccos( ${bc}² - ${ab}² - ${ca}² / -2 * ${ab * ca} ) * 180 / π
+        beta = arccos( ${bc}² - ${ab}² - ${ca}² / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${Math.pow(bc , 2)} - ${Math.pow(ab , 2)} - ${Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${Math.pow(bc , 2) - Math.pow(ab , 2)} - ${Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${(Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)} ) * 180 / π
+        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * 180 / π
+        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * 180 / ${Math.PI}
+        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * ${180 / Math.PI}
+        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)) * 180 / Math.PI}°
+
+        charlie = arccos( c² – a² – b² / – 2 * a * b ) * 180 / π
+        charlie = arccos( ${ca}² - ${ab}² - ${bc}² / -2 * ${ab} * ${bc} ) * 180 / π
+        charlie = arccos( ${ca}² - ${ab}² - ${bc}² / -2 * ${ab * bc} ) * 180 / π
+        charlie = arccos( ${ca}² - ${ab}² - ${bc}² / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${Math.pow(ca , 2)} - ${Math.pow(ab , 2)} - ${Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${Math.pow(ca , 2) - Math.pow(ab , 2)} - ${Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${(Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)} ) * 180 / π
+        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * 180 / π
+        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * 180 / ${Math.PI}
+        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * ${180 / Math.PI}
+        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)) * 180 / Math.PI}°
+
+        alfa = ${this.alfa}°
+        beta = ${this.beta}°
+        charlie = ${this.charlie}°
         
         `)
 
+    }
+
+    radToGraus (rad:number) {
+
+        return Math.round(rad * (180 / Math.PI))
+    
     }
 
 }
