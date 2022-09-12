@@ -3,9 +3,9 @@ class Triangulo {
     A: { x: number, y: number }
     B: { x: number, y: number }
     C: { x: number, y: number }
-    alfa:number
-    beta:number
-    charlie:number
+    alfa: number
+    beta: number
+    charlie: number
 
     constructor(A: { x: number, y: number }, B: { x: number, y: number }, C: { x: number, y: number }) {
 
@@ -18,18 +18,18 @@ class Triangulo {
 
     }
 
-    getAngle(tipo:string) {
+    getAngle(tipo: string) {
 
         const ab = this.getLine(this.A, this.B)
         const bc = this.getLine(this.B, this.C)
         const ca = this.getLine(this.C, this.A)
 
         switch (tipo) {
-            case "alfa": return this.radToGraus(Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)))
-        
-            case "beta": return this.radToGraus(Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)))
+            case "alfa": return this.radToGraus(Math.acos((Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca)))
 
-            case "charlie": return this.radToGraus(Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)))
+            case "beta": return this.radToGraus(Math.acos((Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca)))
+
+            case "charlie": return this.radToGraus(Math.acos((Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc)))
         }
         return 0
 
@@ -45,36 +45,253 @@ class Triangulo {
 
     }
 
+    getPerimetro() {
+
+        const ab = this.getLine(this.A, this.B)
+        const bc = this.getLine(this.B, this.C)
+        const ca = this.getLine(this.C, this.A)
+
+        return ab + bc + ca
+
+    }
+
     getLine(p1: { x: number, y: number }, p2: { x: number, y: number }) {
 
         return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2))
 
     }
 
-    render(ctx: CanvasRenderingContext2D , modo?:string) {
+    render(ctx: CanvasRenderingContext2D) {
 
-        const A = scale(this.A.x , this.A.y)
-        const B = scale(this.B.x , this.B.y)
-        const C = scale(this.C.x , this.C.y)
+        const mostar = {
 
-        ctx.fillStyle = "#5E0099"
+            circuncentro: $("#circuncentro").prop("checked") as boolean,
+            ortocentro: $("#ortocentro").prop("checked") as boolean,
+            baricentro: $("#baricentro").prop("checked") as boolean,
+            incentro: $("#incentro").prop("checked") as boolean
+
+        }
+
+        console.log(this.ortocentro().x, this.ortocentro().y);
+
+        const ab = this.getLine(this.A, this.B)
+        const bc = this.getLine(this.B, this.C)
+        const ca = this.getLine(this.C, this.A)
+
+        const G = scale(this.baricentro().x, this.baricentro().y)
+        const I = scale(this.incentro().x, this.incentro().y)
+        const H = scale(this.ortocentro().x, this.ortocentro().y)
+
+        const N = scale(this.circuncentro().N.x, this.circuncentro().N.y)
+        const P = scale(this.circuncentro().P.x, this.circuncentro().P.y)
+        const Q = scale(this.circuncentro().Q.x, this.circuncentro().Q.y)
+        const R = scale(this.circuncentro().R.x, this.circuncentro().R.y)
+
+        const A = scale(this.A.x, this.A.y)
+        const B = scale(this.B.x, this.B.y)
+        const C = scale(this.C.x, this.C.y)
+
+        ctx.fillStyle = "white"
         ctx.strokeStyle = "#5E0099"
 
-        const path = new Path2D()
+        const triangulo = new Path2D()
 
-        path.moveTo(A.x, A.y)
-        path.lineTo(B.x, B.y)
+        triangulo.moveTo(A.x, A.y)
+        triangulo.lineTo(B.x, B.y)
+        triangulo.lineTo(C.x, C.y)
+        triangulo.lineTo(A.x, A.y)
 
-        path.moveTo(B.x, B.y)
-        path.lineTo(C.x, C.y)
+        triangulo.closePath()
 
-        path.moveTo(C.x, C.y)
-        path.lineTo(A.x, A.y)
+        ctx.stroke(triangulo)
 
-        path.closePath()
+        ctx.fill(triangulo)
 
-        ctx.fill(path)
-        ctx.stroke(path)
+        if (mostar.baricentro) {
+
+            const bari = new Path2D;
+
+            ctx.strokeStyle = "#0300FF"
+
+            bari.moveTo(A.x, A.y)
+            bari.lineTo(G.x, G.y)
+
+            bari.moveTo(B.x, B.y)
+            bari.lineTo(G.x, G.y)
+
+            bari.moveTo(C.x, C.y)
+            bari.lineTo(G.x, G.y)
+
+            ctx.stroke(bari)
+
+            bari.closePath()
+
+        }
+        if (mostar.incentro) {
+
+            const inc = new Path2D;
+
+            ctx.strokeStyle = "#0090FF"
+
+            inc.moveTo(A.x, A.y)
+            inc.lineTo(I.x, I.y)
+
+            inc.moveTo(B.x, B.y)
+            inc.lineTo(I.x, I.y)
+
+            inc.moveTo(C.x, C.y)
+            inc.lineTo(I.x, I.y)
+
+            ctx.stroke(inc)
+
+            inc.closePath()
+
+        }
+        if (mostar.ortocentro) {
+
+            const ort = new Path2D;
+
+            ctx.strokeStyle = "#C22D00"
+
+            console.log({ TRI: scale(this.A.x, this.A.y) });
+            console.log({ H });
+
+            ort.moveTo(H.x, H.y)
+            ort.lineTo(A.x, A.y)
+
+            ort.moveTo(H.x, H.y)
+            ort.lineTo(B.x, B.y)
+
+            ort.moveTo(H.x, H.y)
+            ort.lineTo(C.x, C.y)
+
+            ctx.stroke(ort)
+
+            ort.closePath()
+
+        }
+        if (mostar.circuncentro) {
+
+            const cir = new Path2D()
+
+            ctx.strokeStyle = "#E164FF"
+
+            cir.moveTo(P.x, P.y)
+            cir.lineTo(N.x, N.y)
+
+
+            cir.moveTo(Q.x, Q.y)
+            cir.lineTo(N.x, N.y)
+
+            cir.moveTo(R.x, R.y)
+            cir.lineTo(N.x, N.y)
+
+            if (this.tipoTriangulo().lados == "equilátero") {
+
+                const circulo = new Path2D()
+
+                const r = (Math.sqrt(Math.pow(ab , 2) + Math.pow(ca , 2)) / 3) * Math.pow(ca , 2.4) 
+
+                ctx.fillStyle = "#420000"
+
+                circulo.arc(N.x , N.y , r , this.grausToRad(0) , this.grausToRad(360) , true)
+
+                ctx.fill(circulo)
+
+                circulo.closePath()
+                
+            }
+
+            ctx.stroke(cir)
+
+            cir.closePath()
+
+        }
+
+    }
+
+    baricentro() {
+
+        return {
+
+            x: (this.A.x + this.B.x + this.C.x) / 3,
+            y: (this.A.y + this.B.y + this.C.y) / 3
+
+        }
+
+    }
+
+    incentro() {
+
+        const ab = this.getLine(this.A, this.B)
+        const bc = this.getLine(this.B, this.C)
+        const ca = this.getLine(this.C, this.A)
+
+        const p = this.getPerimetro()
+
+        return {
+
+            x: ((ab * this.A.x) + (bc * this.B.x) + (ca * this.C.x)) / p,
+            y: ((ab * this.A.y) + (bc * this.B.y) + (ca * this.C.y)) / p
+
+        }
+
+    }
+
+    circuncentro() {
+
+        const cir = {
+
+            N: {
+
+                x: 0,
+                y: 0
+
+            },
+            P: {
+
+                x: (this.C.x + this.B.x) / 2,
+                y: (this.C.y + this.B.y) / 2
+
+            },
+            Q: {
+
+                x: (this.A.x + this.B.x) / 2,
+                y: (this.A.y + this.B.y) / 2
+
+            },
+            R: {
+
+                x: (this.A.x + this.C.x) / 2,
+                y: (this.A.y + this.C.y) / 2
+
+            },
+
+        }
+
+        cir.N.x = ((cir.P.x * Math.tan(this.grausToRad(this.alfa))) + (cir.Q.x * Math.tan(this.grausToRad(this.charlie))) + (cir.R.x * Math.tan(this.grausToRad(this.beta)))) / (Math.tan(this.grausToRad(this.alfa)) + Math.tan(this.grausToRad(this.charlie)) + Math.tan(this.grausToRad(this.beta)))
+        cir.N.y = ((cir.P.y * Math.tan(this.grausToRad(this.alfa))) + (cir.Q.y * Math.tan(this.grausToRad(this.charlie))) + (cir.R.y * Math.tan(this.grausToRad(this.beta)))) / (Math.tan(this.grausToRad(this.alfa)) + Math.tan(this.grausToRad(this.charlie)) + Math.tan(this.grausToRad(this.beta)))
+
+        return cir
+
+    }
+
+    ortocentro() {
+
+        switch (true) {
+            case Math.round(this.alfa) == 90:
+
+                return this.C;
+
+            case Math.round(this.beta) == 90:
+                return this.A;
+
+            case Math.round(this.charlie) == 90:
+
+                return this.B;
+        }
+
+        return { x: NaN, y: NaN }
 
     }
 
@@ -83,6 +300,8 @@ class Triangulo {
         const ab = this.getLine(this.A, this.B)
         const bc = this.getLine(this.B, this.C)
         const ca = this.getLine(this.C, this.A)
+
+        const p = this.getPerimetro()
 
         $("#calculo").val(`
 
@@ -97,22 +316,22 @@ class Triangulo {
         a = sqrt( (Ax - Bx)² + (Ay - By)² )
         a = sqrt( (${this.A.x} - ${this.B.x})² + (${this.A.y} - ${this.B.y})² )
         a = sqrt( (${this.A.x - this.B.x})² + (${this.A.y - this.B.y})² )
-        a = sqrt( ${Math.pow(this.A.x - this.B.x , 2)} + ${Math.pow(this.A.y - this.B.y , 2)} )
-        a = sqrt( ${Math.pow(this.A.x - this.B.x , 2) + Math.pow(this.A.y - this.B.y , 2)} )
+        a = sqrt( ${Math.pow(this.A.x - this.B.x, 2)} + ${Math.pow(this.A.y - this.B.y, 2)} )
+        a = sqrt( ${Math.pow(this.A.x - this.B.x, 2) + Math.pow(this.A.y - this.B.y, 2)} )
         a = ${ab}
 
         b = sqrt( (Bx - Cx)² + (By - Cy)² )
         b = sqrt( (${this.B.x} - ${this.C.x})² + (${this.B.y} - ${this.C.y})² )
         b = sqrt( (${this.B.x - this.C.x})² + (${this.B.y - this.C.y})² )
-        b = sqrt( ${Math.pow(this.B.x - this.C.x , 2)} + ${Math.pow(this.B.y - this.C.y , 2)} )
-        b = sqrt( ${Math.pow(this.B.x - this.C.x , 2) + Math.pow(this.B.y - this.C.y , 2)} )
+        b = sqrt( ${Math.pow(this.B.x - this.C.x, 2)} + ${Math.pow(this.B.y - this.C.y, 2)} )
+        b = sqrt( ${Math.pow(this.B.x - this.C.x, 2) + Math.pow(this.B.y - this.C.y, 2)} )
         b = ${bc}
 
         c = sqrt( (Cx - Ax)² + (Cy - Ay)² )
         c = sqrt( (${this.C.x} - ${this.A.x})² + (${this.C.y} - ${this.A.y})² )
         c = sqrt( (${this.C.x - this.A.x})² + (${this.C.y - this.A.y})² )
-        c = sqrt( ${Math.pow(this.C.x - this.A.x , 2)} + ${Math.pow(this.C.y - this.A.y , 2)} )
-        c = sqrt( ${Math.pow(this.C.x - this.A.x , 2) + Math.pow(this.C.y - this.A.y , 2)} )
+        c = sqrt( ${Math.pow(this.C.x - this.A.x, 2)} + ${Math.pow(this.C.y - this.A.y, 2)} )
+        c = sqrt( ${Math.pow(this.C.x - this.A.x, 2) + Math.pow(this.C.y - this.A.y, 2)} )
         c = ${ca}
         
         CONDIÇÃO DE EXISTÊNCIA DO TRIÂNGULO
@@ -132,64 +351,194 @@ class Triangulo {
         
         condição de existência: ${this.isValid() ? "verdadeiro" : "falso"}
 
+        PERÍMETRO
+
+        p = ${this.getPerimetro()}
+
+        p = a + b + c
+        p = ${ab} + ${bc} + ${ca}
+        p = ${this.getPerimetro()}
+
         ÂNGULO DO TRIÂNGULO
 
         alfa = arccos( a² - b² - c² / -2 * b * c ) * 180 / π
         alfa = arccos( ${ab}² - ${bc}² - ${ca}² / -2 * ${bc} * ${ca} ) * 180 / π
         alfa = arccos( ${ab}² - ${bc}² - ${ca}² / -2 * ${bc * ca} ) * 180 / π
         alfa = arccos( ${ab}² - ${bc}² - ${ca}² / ${-2 * bc * ca} ) * 180 / π
-        alfa = arccos( ${Math.pow(ab , 2)} - ${Math.pow(bc , 2)} - ${Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
-        alfa = arccos( ${Math.pow(ab , 2) - Math.pow(bc , 2)} - ${Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
-        alfa = arccos( ${Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)} / ${-2 * bc * ca} ) * 180 / π
-        alfa = arccos( ${(Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)} ) * 180 / π
-        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * 180 / π
-        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * 180 / ${Math.PI}
-        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca))} * ${180 / Math.PI}
-        alfa = ${Math.acos((Math.pow(ab , 2) - Math.pow(bc , 2) - Math.pow(ca , 2)) / (-2 * bc * ca)) * 180 / Math.PI}°
+        alfa = arccos( ${Math.pow(ab, 2)} - ${Math.pow(bc, 2)} - ${Math.pow(ca, 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${Math.pow(ab, 2) - Math.pow(bc, 2)} - ${Math.pow(ca, 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)} / ${-2 * bc * ca} ) * 180 / π
+        alfa = arccos( ${(Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca)} ) * 180 / π
+        alfa = ${Math.acos((Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca))} * 180 / π
+        alfa = ${Math.acos((Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca))} * 180 / ${Math.PI}
+        alfa = ${Math.acos((Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca))} * ${180 / Math.PI}
+        alfa = ${Math.acos((Math.pow(ab, 2) - Math.pow(bc, 2) - Math.pow(ca, 2)) / (-2 * bc * ca)) * 180 / Math.PI}°
 
         beta = arccos( b² – a² – c² / – 2 * a * c ) * 180 / π
         beta = arccos( ${bc}² - ${ab}² - ${ca}² / -2 * ${ab} * ${ca} ) * 180 / π
         beta = arccos( ${bc}² - ${ab}² - ${ca}² / -2 * ${ab * ca} ) * 180 / π
         beta = arccos( ${bc}² - ${ab}² - ${ca}² / ${-2 * ab * ca} ) * 180 / π
-        beta = arccos( ${Math.pow(bc , 2)} - ${Math.pow(ab , 2)} - ${Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
-        beta = arccos( ${Math.pow(bc , 2) - Math.pow(ab , 2)} - ${Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
-        beta = arccos( ${Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)} / ${-2 * ab * ca} ) * 180 / π
-        beta = arccos( ${(Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)} ) * 180 / π
-        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * 180 / π
-        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * 180 / ${Math.PI}
-        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca))} * ${180 / Math.PI}
-        beta = ${Math.acos((Math.pow(bc , 2) - Math.pow(ab , 2) - Math.pow(ca , 2)) / (-2 * ab * ca)) * 180 / Math.PI}°
+        beta = arccos( ${Math.pow(bc, 2)} - ${Math.pow(ab, 2)} - ${Math.pow(ca, 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${Math.pow(bc, 2) - Math.pow(ab, 2)} - ${Math.pow(ca, 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)} / ${-2 * ab * ca} ) * 180 / π
+        beta = arccos( ${(Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca)} ) * 180 / π
+        beta = ${Math.acos((Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca))} * 180 / π
+        beta = ${Math.acos((Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca))} * 180 / ${Math.PI}
+        beta = ${Math.acos((Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca))} * ${180 / Math.PI}
+        beta = ${Math.acos((Math.pow(bc, 2) - Math.pow(ab, 2) - Math.pow(ca, 2)) / (-2 * ab * ca)) * 180 / Math.PI}°
 
         charlie = arccos( c² – a² – b² / – 2 * a * b ) * 180 / π
         charlie = arccos( ${ca}² - ${ab}² - ${bc}² / -2 * ${ab} * ${bc} ) * 180 / π
         charlie = arccos( ${ca}² - ${ab}² - ${bc}² / -2 * ${ab * bc} ) * 180 / π
         charlie = arccos( ${ca}² - ${ab}² - ${bc}² / ${-2 * ab * bc} ) * 180 / π
-        charlie = arccos( ${Math.pow(ca , 2)} - ${Math.pow(ab , 2)} - ${Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
-        charlie = arccos( ${Math.pow(ca , 2) - Math.pow(ab , 2)} - ${Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
-        charlie = arccos( ${Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)} / ${-2 * ab * bc} ) * 180 / π
-        charlie = arccos( ${(Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)} ) * 180 / π
-        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * 180 / π
-        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * 180 / ${Math.PI}
-        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc))} * ${180 / Math.PI}
-        charlie = ${Math.acos((Math.pow(ca , 2) - Math.pow(ab , 2) - Math.pow(bc , 2)) / (-2 * ab * bc)) * 180 / Math.PI}°
+        charlie = arccos( ${Math.pow(ca, 2)} - ${Math.pow(ab, 2)} - ${Math.pow(bc, 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${Math.pow(ca, 2) - Math.pow(ab, 2)} - ${Math.pow(bc, 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)} / ${-2 * ab * bc} ) * 180 / π
+        charlie = arccos( ${(Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc)} ) * 180 / π
+        charlie = ${Math.acos((Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc))} * 180 / π
+        charlie = ${Math.acos((Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc))} * 180 / ${Math.PI}
+        charlie = ${Math.acos((Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc))} * ${180 / Math.PI}
+        charlie = ${Math.acos((Math.pow(ca, 2) - Math.pow(ab, 2) - Math.pow(bc, 2)) / (-2 * ab * bc)) * 180 / Math.PI}°
 
         alfa = ${this.alfa}°
         beta = ${this.beta}°
         charlie = ${this.charlie}°
+
+        TIPO DO TRIANGULO
+
+        pelos angulos ele é: ${this.tipoTriangulo().angulos}
+
+        acutângulo: ${Math.round(this.alfa) < 90 && Math.round(this.beta) < 90 && Math.round(this.charlie) < 90 ? "verdadeiro" : "falso"}
+        alfa < 90° E beta < 90° E charlie < 90°
+        ${Math.round(this.alfa)}° < 90° E ${Math.round(this.beta)}° < 90° E ${Math.round(this.charlie)}° < 90°
+
+        retângulo: ${Math.round(this.alfa) == 90 || Math.round(this.beta) == 90 || Math.round(this.charlie) == 90 ? "verdadeiro" : "falso"}
+        alfa = 90° OU beta = 90° OU charlie = 90°
+        ${Math.round(this.alfa)}° = 90° OU ${Math.round(this.beta)}° = 90° OU ${Math.round(this.charlie)}° = 90°
+        
+        obtusângulo: ${Math.round(this.alfa) > 90 || Math.round(this.beta) > 90 || Math.round(this.charlie) > 90 ? "verdadeiro" : "falso"}
+        alfa > 90° OU beta > 90° OU charlie > 90°
+        ${Math.round(this.alfa)}° > 90° OU ${Math.round(this.beta)}° > 90° OU ${Math.round(this.charlie)}° > 90°
+
+        pelos lados ele é: ${this.tipoTriangulo().lados}
+
+        equilátero: ${ab == bc && bc == ca && ca == ab ? "verdadeiro" : "falso"}
+        a = b E b = c E c = a 
+        ${ab} = ${bc} E ${bc} = ${ca} E ${ca} = ${ab}
+        
+        isósceles: ${ab == bc || bc == ca || ca == ab ? "verdadeiro" : "falso"}
+        a = b OU b = c OU c = a
+        ${ab} = ${bc} OU ${bc} = ${ca} OU ${ca} = ${ab}
+
+        escaleno ${ab != bc && bc != ca && ca != ab ? "verdadeiro" : "falso"}
+        a ≠ b E b ≠ c E c ≠ a
+        ${ab} ≠ ${bc} E ${bc} ≠ ${ca} E ${ca} ≠ ${ab}
+        
+
+        BARICENTRO
+
+        g = (${this.baricentro().x} , ${this.baricentro().y})
+
+        gx = Ax + Bx + Cx / 3
+        gx = ${this.A.x} + ${this.B.x} + ${this.C.x} / 3
+        gx = ${(this.A.x + this.B.x + this.C.x)} / 3
+        gx = ${(this.A.x + this.B.x + this.C.x) / 3}
+
+        gy = Ax + Bx + Cx / 3
+        gy = ${this.A.y} + ${this.B.y} + ${this.C.y} / 3
+        gy = ${(this.A.y + this.B.y + this.C.y)} / 3
+        gy = ${(this.A.y + this.B.y + this.C.y) / 3}
+
+        INCENTRO
+
+        i = (${this.incentro().x} , ${this.incentro().y})
+
+        ix = a * Ax + * b * Bx + c * Cx / p
+        ix = ${ab} * ${this.A.x} + ${bc} * ${this.B.x} + ${ca} * ${this.C.x} / ${p}
+        ix = ${ab * this.A.x} + ${bc * this.B.x} + ${ca * this.C.x} / ${p}
+        ix = ${(ab * this.A.x + bc * this.B.x + ca * this.C.x)} / ${p}
+        ix = ${(ab * this.A.x + bc * this.B.x + ca * this.C.x) / p}
+
+        iy = a * Ax + * b * Bx + c * Cx / p
+        iy = ${ab} * ${this.A.y} + ${bc} * ${this.B.y} + ${ca} * ${this.C.y} / ${p}
+        iy = ${ab * this.A.y} + ${bc * this.B.y} + ${ca * this.C.y} / ${p}
+        iy = ${(ab * this.A.y + bc * this.B.y + ca * this.C.y)} / ${p}
+        iy = ${(ab * this.A.y + bc * this.B.y + ca * this.C.y) / p}
         
         `)
 
     }
 
-    radToGraus (rad:number) {
+    radToGraus(rad: number) {
 
-        return Math.round(rad * (180 / Math.PI))
-    
+        return rad * (180 / Math.PI)
+
+    }
+
+    grausToRad(angle: number) {
+
+        return angle * Math.PI / 180
+
+    }
+
+    tipoTriangulo() {
+
+        const ab = this.getLine(this.A, this.B)
+        const bc = this.getLine(this.B, this.C)
+        const ca = this.getLine(this.C, this.A)
+
+        let angulos = "nenhum"
+        let lados = "nenhum"
+
+        switch (true) {
+            case Math.round(this.alfa) == 90 || Math.round(this.beta) == 90 || Math.round(this.charlie) == 90:
+
+                angulos = "retângulo"
+
+                break;
+
+            case Math.round(this.alfa) < 90 && Math.round(this.beta) < 90 && Math.round(this.charlie) < 90:
+
+                angulos = "acutângulo"
+
+                break;
+            case Math.round(this.alfa) > 90 || Math.round(this.beta) > 90 || Math.round(this.charlie) > 90:
+
+                angulos = "obtusângulo"
+
+                break;
+        }
+
+        switch (true) {
+            case ab == bc && bc == ca && ca == ab:
+
+                lados = "equilátero"
+
+                break;
+            case ab == bc || bc == ca || ca == ab:
+
+                lados = "isósceles"
+
+                break;
+            case ab != bc && bc != ca && ca != ab:
+
+                lados = "escaleno"
+
+                break;
+        }
+
+        return {
+
+            angulos: angulos,
+            lados: lados
+
+        }
+
     }
 
 }
 
-const scale = (a:number , b: number ) => {
+const scale = (a: number, b: number) => {
 
     return {
         x: (a * 20) + canvas.width / 2,
