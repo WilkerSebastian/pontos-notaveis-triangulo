@@ -3,6 +3,7 @@ var canvas = document.getElementById("canvas");
 canvas.width = 800;
 canvas.height = 400;
 var ctx = canvas.getContext("2d");
+var triangulo;
 var fundo = function () {
     ctx.fillStyle = "#F5FACF";
     ctx.strokeStyle = "#CFCFC6";
@@ -36,7 +37,7 @@ function update(template) {
     var a = getValue($('#A').val());
     var b = getValue($('#B').val());
     var c = getValue($('#C').val());
-    var triangulo = new Triangulo(a, b, c);
+    triangulo = new Triangulo(a, b, c);
     $("#erro").css("display", (triangulo.isValid()) ? "none" : "block");
     if (triangulo.isValid()) {
         fundo();

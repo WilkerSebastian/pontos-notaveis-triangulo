@@ -4,6 +4,8 @@ canvas.height = 400
 
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
+let triangulo:Triangulo
+
 const fundo = () => {
 
     ctx.fillStyle = "#F5FACF"
@@ -55,7 +57,7 @@ function update(template?: string) {
     const b = getValue($('#B').val() as string)
     const c = getValue($('#C').val() as string)
 
-    const triangulo = new Triangulo(a, b, c)
+    triangulo = new Triangulo(a , b , c)
 
     $("#erro").css("display", (triangulo.isValid()) ? "none" : "block")
 
