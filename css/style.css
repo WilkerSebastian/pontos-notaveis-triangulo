@@ -19,3 +19,15 @@
 .gif {
     width: 50px;
 }
+
+header {
+
+    position: sticky;
+    z-index: 100;
+    top: 0px;
+
+}
+
+.calc {
+    width: 100px;
+}
