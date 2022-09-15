@@ -1,7 +1,7 @@
 "use strict";
 var canvas = document.getElementById("canvas");
-canvas.width = 800;
-canvas.height = 400;
+canvas.width = window.innerWidth < 700 ? window.innerWidth * 0.90 : window.innerWidth * 0.75;
+canvas.height = window.innerHeight < 700 ? window.innerWidth * 0.50 : window.innerWidth * 0.35;
 var ctx = canvas.getContext("2d");
 var run = false;
 var triangulo;
@@ -59,7 +59,8 @@ function update(template) {
         triangulo.calculo();
     }
     if (run) {
-        window.requestAnimationFrame(function () { update(template); });
+        console.log("auto");
+        setTimeout(function () { update(template); });
     }
 }
 var getValue = function (value) {

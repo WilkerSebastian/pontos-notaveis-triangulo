@@ -1,6 +1,7 @@
 const canvas = document.getElementById("canvas") as HTMLCanvasElement
-canvas.width = 800
-canvas.height = 400
+canvas.width = window.innerWidth <  700 ? window.innerWidth * 0.90 : window.innerWidth * 0.75
+canvas.height = window.innerHeight < 700 ? window.innerWidth * 0.50 : window.innerWidth * 0.35
+
 
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
@@ -96,7 +97,8 @@ function update(template?: string) {
 
     if (run) {
         
-        window.requestAnimationFrame(() => {update(template)})
+        console.log("auto");
+        setTimeout(() => {update(template)})
 
     }
 
