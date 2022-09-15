@@ -1,3 +1,9 @@
+* {
+
+    margin: 0px;
+
+}
+
 #canvas {
 
     margin-top: 5%;
@@ -10,4 +16,50 @@
 
     display: none;
 
+}
+
+.conteudo{
+    text-align: justify;
+}
+
+.gif {
+    width: 40px;
+}
+
+header {
+
+    position: sticky;
+    z-index: 100;
+    top: 0px;
+
+}
+
+.calc {
+    width: 80px;
+}
+
+.img_conteudo {
+    width: 500px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.img-gaba {
+    border-radius: 10px;
+}
+
+.img_triangulos {
+    width: 800px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.disc {
+    list-style-type: disc;
+}
+
+.linha {
+    border-bottom: 2px solid gray;
 }

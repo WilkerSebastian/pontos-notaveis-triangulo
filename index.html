@@ -16,9 +16,146 @@
 
     <header>
 
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark text-center">
+            <div class="container-fluid justify-content-around">
+                <div class="w-50">
+                    <img src="./img/gif math.gif" alt="" class="bg-light img-thumbnail gif">
+                    <a class="navbar-brand p-2 fs-4" href="#">MATH</a>
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+                        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+                <div class="collapse navbar-collapse p-2 fs-5" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#">Circuncentro</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#Baricentro">Baricentro</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#Incentro">Incentro</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a class="nav-link" href="#Ortocentro">Ortocentro</a>
+                        </li>
+                        <li class="nav-item px-2">
+                            <a href="#Calculadora">
+                                <img src="./img/calc.gif" class="calc img-thumbnail">
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
 
     </header>
     <main class="container">
+
+        <section class="fs-4 lh-base mx-5 px-5 conteudo py-5 linha">
+            <h1 class="text-center">CIRCUNCENTRO</h1>
+            <p>Mediatriz - A reta perpendicular que passa no ponto médio em um dos lados desse triângulo.</p>
+            <img src="./img/image4.jpg" alt="" class="img_conteudo img-fluid">
+            <p>Circuncentro - Ponto de encontro/intersecção das três mediatrizes.</p>
+            <img src="./img/image11.jpg" alt="" class="img_conteudo img-fluid">
+            <p>Propriedades - A distância do circuncentro a qualquer um dos vértices do triângulo é sempre igual, ou
+                seja, existe uma circunferência circunscrita, cujo centro é o circuncentro do triângulo.</p>
+            <img src="./img/image10.jpg" alt="" class="img_conteudo img-fluid">
+            <p>Propriedades nos triângulos retângulo, obtusângulo, acutângulo e equilátero - No triângulo retângulo o
+                circuncentro é o ponto médio da hipotenusa, no obtusângulo ele fica exterior ao triângulo e no
+                acutângulo ele fica interior ao triângulo; No triângulo equilátero, o círculo é formado tanto
+                internamente quanto externamente.
+            </p>
+            <img src="./img/FormulaCircuncentro.png" class="img_conteudo img-fluid">
+            <p>Exemplo Prático - Wilker está com um problema em sua comunidade. Uma horta será montada e as três
+                famílias envolvidas no mutirão desejam ficar próximas a ela. Wilker então leva duas sugestões para a
+                reunião da comunidade, a de deixar a horta equidistante às três casas, e a de construí-la em um ponto
+                que minimize a construção dos caminhos que ligarão as casas à horta. Esta última sugestão resulta em uma
+                economia na quantidade de caminho que será aberta, mas causa uma grande diferença entre as distâncias
+                percorridas por cada família, como pode ser visto no esquema abaixo. Figura 2: ponto que minimiza a soma
+                das distâncias. Como dito, essa solução prejudicaria uma das famílias e, segundo João, o estatuto da
+                comunidade não permite isso. Um método para encontrar essa solução, ou seja, para encontrar o ponto que
+                minimiza a soma das distâncias até cada um dos vértices.</p>
+        </section>
+
+        <section class="fs-4 lh-base mx-5 px-5 py-5 conteudo linha">
+            <h1 class="text-center" id="Baricentro">BARICENTRO</h1>
+            <p>Mediana: assumindo um triângulo ABC, a mediana é o segmento de reta que segue de um vértice até o ponto
+                médio do lado oposto.</p>
+            <img src="./img/image12.png" alt="" class="img_triangulos img-fluid">
+            <p>Estas medianas se encontram em um mesmo ponto, que é chamado de Baricentro, dado por G.
+            </p>
+            <img src="./img/image13a.png" alt="" class="img_conteudo img-fluid">
+            <h3 class="text-center p-4">Como se calcula o baricentro?</h3>
+            <p>Sabendo que cada vértice possui suas coordenadas, A(xA, yA), B(xB, yB) e C(xC, yC), e seu Baricentro
+                G(xG, yG), basta fazer a média aritmética entre os valores de x para os vértices A, B e C e os valores
+                de y para os mesmos vértices.
+            </p>
+            <img src="./img/image14a.png" alt="" class="img_conteudo img-fluid">
+            <h3 class="text-center p-4">Propriedade 1</h3>
+            <p>Dada qualquer uma das medianas do triângulo, o baricentro divide-a em dois novos segmentos cujos
+                comprimentos estão em razão 1 para 2.
+            </p>
+            <img src="./img/image15a.jpg" alt="" class="img_conteudo img-fluid">
+            <h3 class="text-center p-4">Propriedade 2</h3>
+            <p>Em todo triângulo, o baricentro é um ponto interno.
+                Como as medianas são segmentos que ligam de forma interna o vértice ao ponto médio do lado oposto, ou
+                seja, são sempre segmentos internos do triângulo, consequentemente, o baricentro é um ponto interno do
+                triângulo.
+            </p>
+        </section>
+
+        <section class="fs-4 lh-base mx-5 px-5 py-5 conteudo linha">
+            <h1 class="text-center" id="Incentro">INCENTRO</h1>
+            <p>Bissetriz - Reta (semirreta, segmento de reta) que sai do vértice de um ângulo, dividindo este ângulo em
+                dois ângulos iguais.
+                Por exemplo, a bissetriz do ângulo 180° é o segmento que divide este ngulo em dois ângulos iguais a 90º.
+            </p>
+            <img src="./img/FormulaIncentro.png" class="img_conteudo img-fluid">
+            <img src="./img/image1.png" class="img_conteudo img-fluid">
+            <p>Propriedades - Em um triângulo teremos três ângulos internos, em virtude deste apresentar três vértices.
+                Através desses ângulos, partindo do vértice que secciona o ângulo ao meio, podemos traçar uma bissetriz.
+                Ao traçarmos as bissetrizes por meio dos três pontos, elas vão se intersectar em único ponto, sendo este
+                denominado incentro.
+            </p>
+            <img src="./img/image5.png" class="img_conteudo img-fluid">
+            <p>Porém, o real motivo em especial para que esse encontro das bissetrizes se chame incentro: este ponto
+                recebe tal denominação porque é o centro da circunferência inscrita no triângulo. </p>
+            <img src="./img/image8.png" class="img_conteudo img-fluid">
+            <p>Exemplo Prático - A construção da Praça Vilaboim, localizada em São Paulo, é um exemplo da utilização do
+                incentro na construção do seu piso. Por ter um formato triangular, foi preciso fazer um cálculo por meio
+                das bissetrizes que partem dos três pontos da praça.
+            </p>
+            <img src="./img/image16a.png" alt="" class="img_conteudo img-gaba img-fluid">
+        </section>
+
+        <section class="fs-4 lh-base mx-5 px-5 py-5 conteudo linha">
+            <h1 class="text-center" id="Ortocentro">ORTOCENTRO</h1>
+            <p>Ortocentro - Ponto de encontro de todas as alturas de um triângulo. Na figura abaixo o ortocentro está
+                sendo representado pela letra O.
+            </p>
+            <img src="./img/image9.png" class="img_conteudo img-fluid">
+            <p>Propriedades do ortocentro - Dependendo de qual for o tipo de triângulo (acutângulo, retângulo,
+                obtusângulo), o ortocentro está localizado em um determinado ponto.
+            </p>
+            <img src="./img/FormulaOrtocentro.png" class="img_conteudo img-fluid">
+            <p>Quando o triângulo é acutângulo (todos os ângulos menores que 90°), o ortocentro do triângulo está
+                localizado em seu interior. Na figura abaixo o ortocentro está sendo representado pela letra O.
+            </p>
+            <img src="./img/image7.png" class="img_conteudo img-fluid">
+            <p>Quando o triângulo é retângulo (possui um ângulo igual a 90°), o ortocentro está localizado no vértice
+                oposto à hipotenusa. Na figura abaixo o ortocentro está sendo representado pela letra O.
+            </p>
+            <img src="./img/image3.png" class="img_conteudo img-fluid">
+            <p>Quando o triângulo é obtusângulo (possui um ângulo maior que 90°), o ortocentro está localizado em seu
+                exterior, pois duas de suas alturas estão localizadas em seu exterior e uma em seu interior. Na figura
+                abaixo o ortocentro está sendo representado pela letra O.
+            </p>
+            <img src="./img/image6.png" class="img_conteudo img-fluid">
+        </section>
+
+        <h1 class="text-center p-4" id="Calculadora">CALCULADORA DE TRIANGULOS</h1>
 
         <div class="d-flex mt-5">
 
@@ -100,7 +237,58 @@
     </main>
     <footer>
 
+        <section class="mt-5">
+            <footer class="bg-dark text-white text-center">
+                <div class="container p-4">
+                    <div class="row">
+                        <div class="col-lg-6 col-md-12 mb-4 mb-md-0">
+                            <h5 class="text-uppercase fs-4">Propósito do Site</h5>
 
+                            <p class="fs-6">
+                                Site criado pelos alunos do curso Técnico Integrado em Informática do Instituto Federal
+                                do Mato Grosso do Sul para a realização de trabalho de Matemática 6
+                            </p>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
+                            <h5 class="text-uppercase">Grupo</h5>
+
+                            <ul class="list-unstyled mb-0">
+                                <li>
+                                    <a href="#!" class="text-white">Ester de Lima</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Felipe Rodrigues Ferraz</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Gabriela Vieira Ribeiro</a>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="col-lg-3 col-md-6 mb-3 mb-md-0">
+                            <h5>Grupo</h5>
+                            <ul class="list-unstyled">
+                                <li>
+                                    <a href="#!" class="text-white">Maria Eduarda da Silva de Macedo</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Ncolas Almeida valente</a>
+                                </li>
+                                <li>
+                                    <a href="#!" class="text-white">Wilker Sebastian Afonso Pereira</a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+                    © 2020 Copyright:
+                    <a class="text-white" href="https://mdbootstrap.com/">MDBootstrap.com</a>
+                </div>
+            </footer>
+        </section>
 
     </footer>
 
