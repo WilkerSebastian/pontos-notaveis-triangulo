@@ -1,7 +1,7 @@
 "use strict";
 var canvas = document.getElementById("canvas");
-canvas.width = window.innerWidth < 700 ? window.innerWidth * 0.90 : window.innerWidth * 0.75;
-canvas.height = 400;
+canvas.width = window.innerWidth < 700 ? window.innerWidth * 0.90 : window.innerWidth * 0.6;
+canvas.height = window.innerHeight < 700 ? window.innerHeight * 0.80 : window.innerHeight / 1.9;
 var ctx = canvas.getContext("2d");
 var run = false;
 var triangulo;

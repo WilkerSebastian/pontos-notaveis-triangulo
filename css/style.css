@@ -63,6 +63,19 @@ header {
     list-style-type: none;
 }
 
+.f-col {
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.ml-35 {
+
+    margin-left: 35%;
+
+}
+
 @media only screen and (max-width: 620px) {
     .mx-5 {
         margin-right: 0rem!important;
