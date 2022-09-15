@@ -3,7 +3,17 @@ var canvas = document.getElementById("canvas");
 canvas.width = 800;
 canvas.height = 400;
 var ctx = canvas.getContext("2d");
+var run = false;
 var triangulo;
+document.getElementById("autorender").addEventListener("change", function () {
+    run = !run;
+    if (run) {
+        $("#render").attr("disabled", "disabled");
+    }
+    else {
+        $("#render").removeAttr("disabled");
+    }
+});
 var fundo = function () {
     ctx.fillStyle = "#F5FACF";
     ctx.strokeStyle = "#CFCFC6";
@@ -34,6 +44,7 @@ function update(template) {
             $('#C').val("(5.2 , 0)");
             break;
     }
+    template = "";
     var a = getValue($('#A').val());
     var b = getValue($('#B').val());
     var c = getValue($('#C').val());
@@ -46,6 +57,9 @@ function update(template) {
     }
     else {
         triangulo.calculo();
+    }
+    if (run) {
+        window.requestAnimationFrame(function () { update(template); });
     }
 }
 var getValue = function (value) {

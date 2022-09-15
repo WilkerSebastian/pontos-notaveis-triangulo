@@ -4,7 +4,24 @@ canvas.height = 400
 
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
 
+let run = false
 let triangulo:Triangulo
+
+(document.getElementById("autorender") as HTMLInputElement).addEventListener("change" , () => {
+
+    run = !run
+
+    if (run) {
+     
+        $("#render").attr("disabled" , "disabled")
+
+    } else {
+
+        $("#render").removeAttr("disabled")
+
+    }
+
+})
 
 const fundo = () => {
 
@@ -53,6 +70,8 @@ function update(template?: string) {
             break;
     }
 
+    template = ""
+
     const a = getValue($('#A').val() as string)
     const b = getValue($('#B').val() as string)
     const c = getValue($('#C').val() as string)
@@ -72,6 +91,12 @@ function update(template?: string) {
     } else {
 
         triangulo.calculo()
+
+    }
+
+    if (run) {
+        
+        window.requestAnimationFrame(() => {update(template)})
 
     }
 
