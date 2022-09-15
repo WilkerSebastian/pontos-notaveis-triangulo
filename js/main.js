@@ -1,7 +1,7 @@
 "use strict";
 var canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth < 700 ? window.innerWidth * 0.90 : window.innerWidth * 0.75;
-canvas.height = window.innerHeight < 700 ? window.innerWidth * 0.50 : window.innerWidth * 0.35;
+canvas.height = 400;
 var ctx = canvas.getContext("2d");
 var run = false;
 var triangulo;
@@ -9,6 +9,7 @@ document.getElementById("autorender").addEventListener("change", function () {
     run = !run;
     if (run) {
         $("#render").attr("disabled", "disabled");
+        update();
     }
     else {
         $("#render").removeAttr("disabled");

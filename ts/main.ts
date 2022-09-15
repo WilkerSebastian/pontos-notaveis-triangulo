@@ -1,6 +1,6 @@
 const canvas = document.getElementById("canvas") as HTMLCanvasElement
 canvas.width = window.innerWidth <  700 ? window.innerWidth * 0.90 : window.innerWidth * 0.75
-canvas.height = window.innerHeight < 700 ? window.innerWidth * 0.50 : window.innerWidth * 0.35
+canvas.height = 400
 
 
 const ctx = canvas.getContext("2d") as CanvasRenderingContext2D
@@ -15,6 +15,7 @@ let triangulo:Triangulo
     if (run) {
      
         $("#render").attr("disabled" , "disabled")
+        update()
 
     } else {
 
