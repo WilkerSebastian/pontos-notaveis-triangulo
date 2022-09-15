@@ -56,10 +56,17 @@ header {
     margin-right: auto;
 }
 
-.disc {
-    list-style-type: disc;
-}
-
 .linha {
     border-bottom: 2px solid gray;
+}
+
+.respostas {
+    list-style-type: none;
+}
+
+@media only screen and (max-width: 620px) {
+    .mx-5 {
+        margin-right: 0rem!important;
+        margin-left: 0rem!important;
+    }
 }
