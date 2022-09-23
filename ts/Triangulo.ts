@@ -105,9 +105,9 @@ class Triangulo {
             ctx.fillStyle = "black"
             ctx.font = "15px ARIAL"
 
-            ctx.fillText(`A(${this.A.x.toPrecision(2)} , ${this.A.y.toPrecision(2)})` , A.x - 75 , A.y + 25)
-            ctx.fillText(`B(${this.B.x.toPrecision(2)} , ${this.B.y.toPrecision(2)})` , B.x , B.y - 45)
-            ctx.fillText(`C(${this.C.x.toPrecision(2)} , ${this.C.y.toPrecision(2)})` , C.x + 25, C.y + 25)
+            ctx.fillText(`A(${this.A.x.toFixed(2)} , ${this.A.y.toFixed(2)})` , A.x - 75 , A.y + 25)
+            ctx.fillText(`B(${this.B.x.toFixed(2)} , ${this.B.y.toFixed(2)})` , B.x , B.y - 45)
+            ctx.fillText(`C(${this.C.x.toFixed(2)} , ${this.C.y.toFixed(2)})` , C.x + 25, C.y + 25)
 
             ctx.fillStyle = "black"
 
@@ -140,7 +140,7 @@ class Triangulo {
                 ctx.fillStyle = "black"
                 ctx.font = "10px ARIAL"
     
-                ctx.fillText(`G(${this.baricentro().x.toPrecision(2)} , ${this.baricentro().y.toPrecision(2)})` , G.x , G.y)
+                ctx.fillText(`G(${this.baricentro().x.toFixed(2)} , ${this.baricentro().y.toFixed(2)})` , G.x , G.y)
     
             }
 
@@ -169,7 +169,7 @@ class Triangulo {
                 ctx.fillStyle = "black"
                 ctx.font = "10px ARIAL"
     
-                ctx.fillText(`I(${this.incentro().x.toPrecision(2)} , ${this.incentro().y.toPrecision(2)})` , I.x , I.y)
+                ctx.fillText(`I(${this.incentro().x.toFixed(2)} , ${this.incentro().y.toFixed(2)})` , I.x , I.y)
     
             }
 
@@ -207,7 +207,7 @@ class Triangulo {
                 ctx.fillStyle = "black"
                 ctx.font = "10px ARIAL"
     
-                ctx.fillText(`H(${this.ortocentro().x.toPrecision(2)} , ${this.ortocentro().y.toPrecision(2)})` , H.x , H.y)
+                ctx.fillText(`H(${this.ortocentro().x.toFixed(2)} , ${this.ortocentro().y.toFixed(2)})` , H.x , H.y)
     
             }
 
@@ -227,6 +227,8 @@ class Triangulo {
 
             cir.moveTo(R.x, R.y)
             cir.lineTo(N.x, N.y)
+
+            cir.arc(N.x , N.y , this.getLine(A , N) , 0 , this.grausToRad(360))
 
             if (this.tipoTriangulo().lados == "equilátero") {
 
@@ -262,10 +264,11 @@ class Triangulo {
                 ctx.fillStyle = "black"
                 ctx.font = "10px ARIAL"
     
-                ctx.fillText(`N(${this.circuncentro().N.x.toPrecision(2)} , ${this.circuncentro().N.y.toPrecision(2)})` , N.x , N.y + 10)
-                ctx.fillText(`P(${this.circuncentro().P.x.toPrecision(2)} , ${this.circuncentro().P.y.toPrecision(2)})` , P.x - 5, P.y)
-                ctx.fillText(`Q(${this.circuncentro().Q.x.toPrecision(2)} , ${this.circuncentro().Q.y.toPrecision(2)})` , Q.x + 5, Q.y)
-                ctx.fillText(`R(${this.circuncentro().R.x.toPrecision(2)} , ${this.circuncentro().R.y.toPrecision(2)})` , R.x , R.y - 5)
+                ctx.fillText(`N(${this.circuncentro().N.x.toFixed(2)} , ${this.circuncentro().N.y.toFixed(2)})` , N.x , N.y + 10)
+                ctx.fillText(`P(${this.circuncentro().P.x.toFixed(2)} , ${this.circuncentro().P.y.toFixed(2)})` , P.x - 5, P.y)
+                ctx.fillText(`Q(${this.circuncentro().Q.x.toFixed(2)} , ${this.circuncentro().Q.y.toFixed(2)})` , Q.x + 5, Q.y)
+                ctx.fillText(`R(${this.circuncentro().R.x.toFixed(2)} , ${this.circuncentro().R.y.toFixed(2)})` , R.x , R.y - 5)
+                ctx.fillText(`raio ${this.getLine(this.A , this.circuncentro().N).toFixed(2)}` , N.x + this.getLine(A , N) / 2, N.y - 5)
     
             }
 
